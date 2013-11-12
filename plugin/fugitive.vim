@@ -768,6 +768,7 @@ function! s:StageReloadSeek(target,lnum1,lnum2)
 endfunction
 
 function! s:StageDiff(diff) abort
+  echomsg a:diff
   let [filename, section] = s:stage_info(line('.'))
   if filename ==# '' && section ==# 'staged'
     return 'Git! diff --no-ext-diff --cached'
@@ -778,11 +779,9 @@ function! s:StageDiff(diff) abort
     execute 'Gedit '.s:fnameescape(':0:'.new)
     return a:diff.' HEAD:'.s:fnameescape(old)
   elseif section ==# 'staged'
-    execute 'Gedit '.s:fnameescape(':0:'.filename)
-    return a:diff.' -'
+    return 'Git! diff --no-ext-diff --cached '.s:fnameescape(filename)
   else
-    execute 'Gedit '.s:fnameescape('/'.filename)
-    return a:diff
+    return 'Git! diff --no-ext-diff '.s:fnameescape(filename)
   endif
 endfunction
 
