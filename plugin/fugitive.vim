@@ -768,7 +768,6 @@ function! s:StageReloadSeek(target,lnum1,lnum2)
 endfunction
 
 function! s:StageDiff(diff) abort
-  echomsg a:diff
   let [filename, section] = s:stage_info(line('.'))
   if filename ==# '' && section ==# 'staged'
     return 'Git! diff --no-ext-diff --cached'
